@@ -1,0 +1,6 @@
+numpy
+batoid
+matplotlib
+plotly
+pandas
+scipy

@@ -1,0 +1,7 @@
+README.md
+setup.py
+Batoid4LOFT.egg-info/PKG-INFO
+Batoid4LOFT.egg-info/SOURCES.txt
+Batoid4LOFT.egg-info/dependency_links.txt
+Batoid4LOFT.egg-info/requires.txt
+Batoid4LOFT.egg-info/top_level.txt
