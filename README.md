@@ -8,8 +8,3 @@ This package provides tools for optics simulation, ray tracing, and analysis.
 - Perform ray tracing with different configurations.
 - Analyze optical properties like Strehl ratio, wavefront RMS, etc.
 - Visualize results using plots and 3D representations.
-
-## Installation
-Run:
-```bash
-pip install .
