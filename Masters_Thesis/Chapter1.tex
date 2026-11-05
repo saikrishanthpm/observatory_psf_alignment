@@ -1,0 +1,42 @@
+\chapter{Introduction}\label{sec:intro}
+\thispagestyle{fancy} %Resets custom page number location on first chapter page
+
+Optical observatories depend on precise alignment of telescope optics to maintain image quality. Wavefront aberrations from mirror translations and tilts propagate into field-dependent point spread functions (PSFs). These field-dependent PSFs therefore provide observables sensitive to rigid-body misalignment even when direct wavefront sensing is unavailable or incomplete.
+
+How a misalignment appears in the image depends on the optical design. In a rotationally symmetric telescope the aberration field contributed by each surface is centered on the optical axis. Decentering or tilting a mirror displaces that surface's contribution, and the combined aberration field develops nodes, field points of zero aberration, away from the field center. Nodal aberration theory~\citep{Thompson2005} describes this behavior at third order, and \citet{Thompson2008} applied it to the misalignment-induced aberrations of three-mirror anastigmats. \citet{SchechterLevinson2011} showed that the resulting patterns are generic: each is set by a two-dimensional vector built from the decenters and tilts of the individual mirrors, and keeping an $N$-mirror telescope aligned requires measuring $2(N-1)$ of these patterns. They also found that a three-mirror anastigmat has a subspace of misalignments that introduces no third-order coma, astigmatism or field curvature. Different combinations of mirror motions can therefore produce nearly the same image, which is one reason a single field point cannot identify a misalignment and why the likelihood in this work combines several field points.
+
+In this work, we implement a simulation-based solution to the inverse problem of estimating mirror positions from observables: given multi-field PSF observations projected onto basis vectors, we estimate the underlying telescope mirror alignment parameters $\boldsymbol{\theta}$. Synthetic PSFs generated from an open-source ray-tracing model are compared to stored ``observations'' through a multivariate Gaussian likelihood in coefficient space. We present benchmarks against example two and three mirror telescope models as summarized in Table~\ref{tab:summary}.
+
+\begin{table*}
+\centering
+\caption{Summary of the two telescope models used in this study.}
+\label{tab:summary}
+\begin{tabular}{llllll}
+\hline
+Telescope & Degrees of freedom & Noise & Basis (modes) & Fields & Wavelength \\
+\hline
+Hubble & 5  & Yes & Circular-Bessel (15) & 5  & 0.55\,$\mu$m \\
+TMA    & 10 & Yes & Zernike (11) & 10 & 0.65\,$\mu$m \\
+\hline
+\end{tabular}
+\end{table*}
+
+Historical HST servicing relied on phase retrieval with focus diversity~\citep{Fienup1982,Lofgren2014,Krist1997} rather than direct PSF-to-alignment inversion leveraging a full ray-trace model. The commissioning of the James Webb Space Telescope (JWST),  a deployable three-mirror anastigmat~\citep{Knight2012}, is the most relevant recent precedent. Because the segmented primary can compensate the on-axis wavefront error caused by a misplaced secondary mirror, secondary-mirror misalignment appears mainly in field-dependent terms (astigmatism and focal-plane tilt) that can only be sensed at multiple field points~\citep{ActonKnight2012}. The final stage of JWST telescope commissioning, Multi-Instrument Multi-Field (MIMF) alignment, measured the wavefront with phase retrieval at field points across the science instruments to verify and refine the secondary-mirror position~\citep{Acton2022,McElwain2023}. That approach reconstructs the wavefront at each field point and maps it to mirror corrections through a linear optical model; here we instead infer rigid-body mirror positions directly from PSF intensity with a non-linear ray-trace forward model, obtaining a posterior over the alignment parameters.
+
+Ground-based observatories and laboratory systems use related approaches. A common approach converts measured Zernike coefficients into mirror corrections through a linear sensitivity matrix, or sensitivity table, computed from the optical design. Merit-function regression~\citep{Kim2007} instead fits the misalignment parameters by damped least squares, which copes better with non-linear wavefront sensitivity. Phase diversity~\citep{Gonsalves1982} estimates the wavefront from images taken with a known added aberration, typically defocus. The Rubin Observatory measures its wavefront with curvature sensors at the corners of the focal plane and feeds the estimates to an active optics system that corrects the alignment and figure of its optics~\citep{Xin2015}. Each of these methods first estimates the wavefront and then infers the alignment through a model of how the wavefront responds to mirror motions, usually linearized about the nominal design.
+
+Modern open-source ray tracers and nested samplers make it practical to evaluate a full forward model at every likelihood call over a large enough parameter space for the method to be practically useful. Missions such as the Habitable Worlds Observatory (HWO;~\citealt{HWO2023}) and the Lazuli Space Observatory~\citep{Roy2026} will require precise and robust alignment algorithms for complex three-mirror anastigmat designs. We investigate the feasibility of solving for telescope misalignments directly from PSF observables as a method for future observatories, like HWO, to rapidly and precisely stabilize their mirrors.
+
+This thesis makes the following contributions:
+\begin{enumerate}
+    \item A forward model that ray traces rigid-body mirror misalignments in Optiland and reduces each PSF to a short vector of basis coefficients, so that a full non-linear model can be evaluated at every likelihood call.
+    \item A two-stage inference pipeline in which nested sampling explores the posterior over the alignment parameters and differential evolution refines a point estimate within bounds taken from that posterior.
+    \item Benchmarks on a two-mirror Hubble model with five secondary-mirror degrees of freedom and on a three-mirror anastigmat with ten primary- and secondary-mirror degrees of freedom, validated by comparing PSFs and OPD maps with the nominal designs.
+    \item An analysis of the parameter degeneracies in the TMA posterior and of their optical origin.
+    \item An analysis of how observation noise propagates through the basis coefficients into the likelihood and the differential-evolution estimate. It shows that the residuals of both benchmarks are those predicted by the noise, amplified along the near-degenerate directions, and how the errors scale with the noise level.
+    \item A study, with the linearized analysis and with full runs of the pipeline, of observations taken after known moves of the Hubble secondary. Tilts of $\pm0.1$ degrees reduce the noise-limited errors by a further factor of about 3, and 7 on the despace, beyond the gain from the additional exposures, by making the coefficients more sensitive to the alignment rather than by breaking the decenter--tilt degeneracy.
+\end{enumerate}
+
+The rest of the thesis is organized as follows. Chapter~\ref{chap:methods} describes the forward model, the likelihood, nested sampling and differential evolution. Chapters~\ref{chap:hubble} and~\ref{chap:tma} apply the pipeline to the Hubble and TMA models and present the results. Chapter~\ref{chap:noise} examines how noise affects both models and whether known moves of the Hubble secondary improve the precision, and Chapter~\ref{chap:conclusions} summarizes the results and outlines future work.
+
+Portions of Chapters~\ref{sec:intro}--\ref{chap:tma} and~\ref{chap:conclusions} are adapted from a co-authored manuscript, ``O Mirror, Where Art Thou? Position retrieval using nested sampling and global minimization'', by the author with S.~Sabhlok, J.~N.~Ashcraft, K.~Van~Gorkom and E.~S.~Douglas, prepared for RAS Techniques and Instruments.

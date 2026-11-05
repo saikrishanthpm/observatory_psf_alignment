@@ -1,0 +1,49 @@
+\contentsline {chapter}{LIST OF FIGURES}{9}{section*.5}%
+\contentsline {chapter}{LIST OF TABLES}{11}{section*.7}%
+\contentsline {chapter}{ABSTRACT}{12}{chapter*.9}%
+\contentsline {chapter}{\numberline {1}Introduction}{13}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Methods}{17}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Raytracing}{17}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Telescope models}{18}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Applying misalignments}{19}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}PSF computation}{19}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Wavefront error}{21}{subsection.2.1.4}%
+\contentsline {section}{\numberline {2.2}Nested sampling}{21}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Bayesian inference}{21}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}The nested sampling algorithm}{22}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Importance nested sampling with Nautilus}{23}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Prior and likelihood}{25}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.5}Using the posterior}{26}{subsection.2.2.5}%
+\contentsline {section}{\numberline {2.3}Differential evolution}{26}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Why a second stage}{26}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}The algorithm}{27}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Initialization from nested sampling}{29}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Polishing}{29}{subsection.2.3.4}%
+\contentsline {section}{\numberline {2.4}Software and reproducibility}{30}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Hubble design specifics and results}{31}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Model and setup}{31}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Results}{33}{section.3.2}%
+\contentsline {chapter}{\numberline {4}TMA design specifics and results}{37}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Model and setup}{37}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Results}{39}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Noise in both models}{44}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Noise model and coefficient noise}{44}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Effect on the likelihood}{45}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Effect on the differential-evolution estimate}{46}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Dependence on noise level}{48}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Observations after known moves of the secondary}{51}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Summary}{56}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Conclusions and future work}{58}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Summary of results}{58}{section.6.1}%
+\contentsline {section}{\numberline {6.2}The roles of the two stages}{59}{section.6.2}%
+\contentsline {section}{\numberline {6.3}What limits the precision}{61}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Limitations}{62}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Future work}{64}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Realistic observations}{64}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}A likelihood based on the noise}{64}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Breaking the degeneracies}{65}{subsection.6.5.3}%
+\contentsline {subsection}{\numberline {6.5.4}More degrees of freedom}{65}{subsection.6.5.4}%
+\contentsline {subsection}{\numberline {6.5.5}Computational cost}{66}{subsection.6.5.5}%
+\contentsline {subsection}{\numberline {6.5.6}Toward closed-loop alignment}{67}{subsection.6.5.6}%
+\contentsline {section}{\numberline {6.6}Closing remarks}{67}{section.6.6}%
+\contentsline {chapter}{REFERENCES}{69}{chapter*.36}%

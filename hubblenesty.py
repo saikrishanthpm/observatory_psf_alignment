@@ -11,6 +11,7 @@ warnings.filterwarnings('ignore')
 from nautilus import Sampler
 
 from poppy.zernike import zernike_basis
+from functools import lru_cache
 
 be.set_backend("torch")
 be.grad_mode.enable()
@@ -91,6 +92,16 @@ def genpsf(WL=0.55, sdx=0, sdy=0, sdz=0, stx=0, sty=0, dterms=5):
 
     return r
 
+
+# Cache wrapper for genpsf to avoid recomputing identical PSFs.
+@lru_cache(maxsize=1024)
+def _genpsf_cached(qWL, qsdx, qsdy, qsdz, qstx, qsty, qdterms):
+  return genpsf(WL=qWL, sdx=qsdx, sdy=qsdy, sdz=qsdz, stx=qstx, sty=qsty, dterms=qdterms)
+
+def genpsf_cached(WL=0.55, sdx=0, sdy=0, sdz=0, stx=0, sty=0, dterms=5, precision=3):
+  q = lambda x: round(float(x), precision)
+  return _genpsf_cached(q(WL), q(sdx), q(sdy), q(sdz), q(stx), q(sty), int(dterms))
+
 C = torch.tensor([[ 2.8546e-02,  2.4201e-04, -3.1598e-04, -4.8934e-02, -3.2693e-04,
          -5.5986e-04, -1.0243e-03, -1.7370e-03, -4.9009e-05, -3.2011e-05,
           3.9497e-02,  9.0271e-04,  4.9170e-04,  1.0310e-04,  6.6334e-05],
@@ -143,7 +154,7 @@ lnorm = -0.5 * (torch.log(torch.tensor(2*torch.pi)) * 4 + torch.log(torch.linalg
 def loglike(theta):
     lsdx,lsdy,lstx,lsty = theta
     ## PSF
-    c = genpsf(WL=0.55, sdx=lsdx, sdy=lsdy, stx=lstx, sty=lsty, dterms=15)
+  c = genpsf_cached(WL=0.55, sdx=lsdx, sdy=lsdy, stx=lstx, sty=lsty, dterms=15, precision=3)
 
     return -0.5 * torch.matmul(torch.tensor(c-ct), torch.matmul(Cinv, torch.tensor(c-ct))) + lnorm
 
@@ -167,7 +178,7 @@ stx_true = np.round(np.random.normal(loc=0,scale=3), 2)
 sty_true = np.round(np.random.normal(loc=0,scale=3), 2)
 
 ## PSF 
-ct = genpsf(WL=0.55, sdx=sdx_true, sdy=sdy_true, stx=stx_true, sty=sty_true, dterms=15)
+ct = genpsf_cached(WL=0.55, sdx=sdx_true, sdy=sdy_true, stx=stx_true, sty=sty_true, dterms=15, precision=3)
 
 it = 0
 n_it  = 2

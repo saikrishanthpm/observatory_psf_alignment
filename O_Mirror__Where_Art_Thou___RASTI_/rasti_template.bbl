@@ -1,0 +1,122 @@
+\begin{thebibliography}{18}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[Acton \& Knight(2012)]{ActonKnight2012}
+Acton, D.~S. \& Knight, J.~S., 2012.
+\newblock Multi-field alignment of the {James Webb Space Telescope}, in {\em
+  Space Telescopes and Instrumentation 2012: Optical, Infrared, and Millimeter
+  Wave\/}, vol. 8442 of {\bf Proceedings of SPIE}, p. 84423C.
+
+\bibitem[Acton et~al.(2022)Acton, Knight, Carrasquilla, et~al.]{Acton2022}
+Acton, D.~S., Knight, S., Carrasquilla, M., et~al., 2022.
+\newblock Phasing the {Webb} telescope, in {\em Space Telescopes and
+  Instrumentation 2022: Optical, Infrared, and Millimeter Wave\/}, vol. 12180
+  of {\bf Proceedings of SPIE}, p. 121800U.
+
+\bibitem[Feroz et~al.(2019)Feroz, Hobson, Cameron, \& Pettitt]{Feroz_2019}
+Feroz, F., Hobson, M.~P., Cameron, E., \& Pettitt, A.~N., 2019.
+\newblock Importance nested sampling and the multinest algorithm, {\it The Open
+  Journal of Astrophysics\/}, {\bf 2}(1).
+
+\bibitem[Fienup(1982)]{Fienup1982}
+Fienup, J.~R., 1982.
+\newblock Phase retrieval algorithms: a comparison, {\it Applied Optics\/},
+  {\bf 21}(15), 2758--2769.
+
+\bibitem[Harrison(2026)]{Harrison_Optiland_2026}
+Harrison, K., 2026.
+\newblock {Optiland}, version 0.6.0,
+  \url{https://github.com/optiland/optiland}.
+
+\bibitem[Kim et~al.(2023)Kim, Choi, \& Douglas]{PearlTMA}
+Kim, D., Choi, H., \& Douglas, E.~S., 2023.
+\newblock Compact three mirror anastigmat space telescope design using 6.5m
+  monolithic primary mirror, in {\em Astronomical Optics: Design, Manufacture,
+  and Test of Space and Ground Systems IV\/}, vol. 12677 of {\bf Proceedings of
+  SPIE}, p. 126770E.
+
+\bibitem[Knight et~al.(2012)Knight, Acton, Lightsey, Contos, \&
+  Barto]{Knight2012}
+Knight, J.~S., Acton, D.~S., Lightsey, P., Contos, A., \& Barto, A., 2012.
+\newblock Observatory alignment of the {James Webb Space Telescope}, in {\em
+  Space Telescopes and Instrumentation 2012: Optical, Infrared, and Millimeter
+  Wave\/}, vol. 8442 of {\bf Proceedings of SPIE}, p. 84422C.
+
+\bibitem[Krist \& Burrows(1997)]{Krist1997}
+Krist, J.~E. \& Burrows, C.~J., 1997.
+\newblock Phase retrieval analysis of {HST} {WF/PC-2} images, in {\em Space
+  Telescopes and Instrumentation\/}, vol. 3356, pp. 758--769.
+
+\bibitem[Lange(2023)]{Lange2023}
+Lange, J.~U., 2023.
+\newblock {nautilus}: boosting {B}ayesian importance nested sampling with deep
+  learning, {\it Monthly Notices of the Royal Astronomical Society\/}, {\bf
+  525}(2), 3181--3194.
+
+\bibitem[L{\"o}fgren et~al.(2014)L{\"o}fgren, Carlsson, \&
+  Holmstr{\"o}m]{Lofgren2014}
+L{\"o}fgren, J., Carlsson, T.~E., \& Holmstr{\"o}m, A., 2014.
+\newblock Focus-diverse phase retrieval of {HST} aberrated images, {\it Applied
+  Optics\/}, {\bf 53}(25), 5726--5736.
+
+\bibitem[McElwain et~al.(2023)]{McElwain2023}
+McElwain, M.~W. et~al., 2023.
+\newblock The {James Webb Space Telescope} mission: Optical telescope element
+  design, development, and performance, {\it Publications of the Astronomical
+  Society of the Pacific\/}, {\bf 135}(1047), 058001.
+
+\bibitem[{NASA Goddard Space Flight Center}(2023)]{HWO2023}
+{NASA Goddard Space Flight Center}, 2023.
+\newblock Habitable worlds observatory: {NASA}'s first flagship astrophysics
+  observatory of the 2040s,
+  \url{https://science.nasa.gov/mission/habitable-worlds-observatory/},
+  Accessed 2025.
+
+\bibitem[Noll(1976)]{Noll1976}
+Noll, R.~J., 1976.
+\newblock Zernike polynomials and atmospheric turbulence, {\it Journal of the
+  Optical Society of America\/}, {\bf 66}(3), 207--211.
+
+\bibitem[Perrin et~al.(2012)Perrin, Long, Denis, Pueyo, Sivaramakrishnan,
+  Elliott, Mazzarella, Sparks, Cox, Soummer, Lallo, Sivaramakrishnan, Krist,
+  Macintosh, \& Breckinridge]{Perrin2012}
+Perrin, M.~D., Long, J.~T., Denis, P.~J., Pueyo, L., Sivaramakrishnan, A.,
+  Elliott, E., Mazzarella, J.~F., Sparks, W.~B., Cox, C., Soummer, R., Lallo,
+  M., Sivaramakrishnan, A., Krist, J.~E., Macintosh, B., \& Breckinridge,
+  J.~B., 2012.
+\newblock Optical simulations of the {James Webb Space Telescope} using
+  {POPPY}, in {\em Space Telescopes and Instrumentation 2012: Optical,
+  Infrared, and Millimeter Wave\/}, vol. 8442, p. 84423D.
+
+\bibitem[Roy et~al.(2026)Roy, Feldman, Klupar, et~al.]{Roy2026}
+Roy, A., Feldman, S., Klupar, P., et~al., 2026.
+\newblock The {Lazuli} space observatory: Architecture and capabilities, {\it
+  The Astrophysical Journal\/}, {\bf 1010}(2), 145.
+
+\bibitem[Skilling(2006)]{Skilling2006}
+Skilling, J., 2006.
+\newblock Nested sampling for general {B}ayesian computation, {\it Bayesian
+  Analysis\/}, {\bf 1}(4), 833--859.
+
+\bibitem[Storn \& Price(1997)]{StornPrice1997}
+Storn, R. \& Price, K., 1997.
+\newblock Differential evolution---a simple and efficient heuristic for global
+  optimization over continuous spaces, {\it Journal of Global Optimization\/},
+  {\bf 11}, 341--359.
+
+\bibitem[Virtanen et~al.(2020)Virtanen, Gommers, Oliphant, Haberland, Reddy,
+  Cournapeau, Burovski, Peterson, Weckesser, Bright, van~der Walt, Brett,
+  Wilson, Millman, Mayorov, Nelson, Jones, Kern, Larson, Carey, Polat, Feng,
+  Moore, VanderPlas, Laxalde, Perktold, Cimrman, Henriksen, Quintero, Harris,
+  Archibald, Ribeiro, Pedregosa, van Mulbregt, \& Contributors]{Virtanen2020}
+Virtanen, P., Gommers, R., Oliphant, T.~E., Haberland, M., Reddy, T.,
+  Cournapeau, D., Burovski, E., Peterson, P., Weckesser, W., Bright, J.,
+  van~der Walt, S.~J., Brett, M., Wilson, J., Millman, K.~J., Mayorov, N.,
+  Nelson, A. R.~J., Jones, E., Kern, R., Larson, E., Carey, C.~J., Polat, I.,
+  Feng, Y., Moore, E.~W., VanderPlas, J., Laxalde, D., Perktold, J., Cimrman,
+  R., Henriksen, I., Quintero, E.~A., Harris, C.~R., Archibald, A.~M., Ribeiro,
+  A.~H., Pedregosa, F., van Mulbregt, P., \& Contributors, S.~., 2020.
+\newblock {SciPy} 1.0: fundamental algorithms for scientific computing in
+  {Python}, {\it Nature Methods\/}, {\bf 17}, 261--272.
+
+\end{thebibliography}

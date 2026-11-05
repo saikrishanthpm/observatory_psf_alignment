@@ -1,0 +1,18 @@
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {1.1}{\ignorespaces Summary of the two telescope models used in this study.\relax }}{14}{table.caption.10}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Optical prescriptions of the two telescope models. Vertex positions $z$ are along the optical axis in the fixed laboratory frame used to place each surface.\relax }}{18}{table.caption.12}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces PSF sampling for the two models.\relax }}{20}{table.caption.13}%
+\contentsline {table}{\numberline {2.3}{\ignorespaces Nautilus settings and run statistics.\relax }}{24}{table.caption.14}%
+\contentsline {table}{\numberline {2.4}{\ignorespaces Differential-evolution settings.\relax }}{29}{table.caption.15}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Hubble secondary: injected truth and DE-recovered misalignment.}}{35}{table.caption.21}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces TMA: injected truth and DE-recovered alignment.}}{40}{table.caption.25}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Noise in coefficient space, in the likelihood and in the DE objective.}}{45}{table.caption.28}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Noise-limited precision of the DE estimate compared with the run residuals.}}{47}{table.caption.29}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Parameter errors and WFE versus noise level.}}{50}{table.caption.32}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Noise-limited precision with known moves of the Hubble secondary.}}{55}{table.caption.34}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {6.1}{\ignorespaces Summary of the two benchmarks.}}{60}{table.caption.35}%

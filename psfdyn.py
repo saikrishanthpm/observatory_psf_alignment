@@ -10,6 +10,7 @@ from scipy.special import jv
 from scipy.special import j1
 from scipy.optimize import minimize
 from multiprocessing import Pool
+from functools import lru_cache
 
 def telescopeCreation(WL,pdx,pdy,pdz,ptx,pty,sdx,sdy,sdz,stx,sty):
     #gaberration inputs in microns and arcseconds
@@ -147,16 +148,74 @@ def basis_vectors(nterms=15, npix=256, rho=None, theta=None, **kwargs):
             basis_output[j] = circ_bessel1(j+1, npix=npix, **kwargs)
     return basis_output
 
+
+def _outside_key(outside):
+    if outside is None or (isinstance(outside, float) and np.isnan(outside)):
+        return "nan"
+    return float(outside)
+
+
+def _as_basis_stack(basis_set, nterms):
+    """Accept basis_vectors output (nterms, H, W) or a list of 2D modes."""
+    basis_stack = np.asarray(basis_set)
+    if basis_stack.ndim == 2:
+        basis_stack = basis_stack[np.newaxis, ...]
+    elif basis_stack.ndim != 3:
+        basis_stack = np.stack(basis_set)
+    if basis_stack.shape[0] != nterms:
+        raise ValueError(
+            f"Expected {nterms} basis modes, got shape {basis_stack.shape}"
+        )
+    return basis_stack
+
+
+@lru_cache(maxsize=16)
+def _polar_grid(npix, zero):
+    x = (np.arange(npix, dtype=np.float64) - (npix - 1) / 2.0) / zero
+    xx, yy = np.meshgrid(x, x)
+    rho = np.sqrt(xx ** 2 + yy ** 2)
+    theta = np.arctan2(yy, xx)
+    return rho, theta
+
+
+@lru_cache(maxsize=16)
+def basis_vectors_cached(nterms=15, npix=256, zero=19.053609871416903, outside="nan"):
+    """Cached basis on a shared (rho, theta) grid. `outside`: 'nan' or a float."""
+    outside_val = np.nan if outside == "nan" else float(outside)
+    rho, theta = _polar_grid(npix, zero)
+    return basis_vectors(
+        nterms=nterms, rho=rho, theta=theta, outside=outside_val, zero=zero
+    )
+
+
+def clear_basis_cache():
+    basis_vectors_cached.cache_clear()
+    _polar_grid.cache_clear()
+
+
 def decompose_psf(psf, nterms=15, basis=basis_vectors, **kwargs):
     npix = psf.shape[0]
-    basis_set = basis(nterms=nterms, npix=npix, outside=np.nan, **kwargs)
-    basis_stack = np.stack(basis_set)  # shape: (nterms, npix, npix)
-    psf_flat = psf.ravel()
+    basis_stack = _as_basis_stack(
+        basis(nterms=nterms, npix=npix, outside=np.nan, **kwargs), nterms
+    )
     basis_flat = basis_stack.reshape(nterms, -1)
-    numerators = np.dot(basis_flat, psf_flat)
-    denominators = np.einsum('ij,ij->i', basis_flat, basis_flat)
-    coeffs = numerators / denominators
-    return coeffs
+    psf_flat = psf.ravel()
+    numerators = basis_flat @ psf_flat
+    denominators = np.einsum("ij,ij->i", basis_flat, basis_flat)
+    return numerators / denominators
+
+
+def decompose_psf_cached(psf, nterms=15, outside=np.nan, **kwargs):
+    npix = psf.shape[0]
+    zero = kwargs.get("zero", 19.053609871416903)
+    basis_stack = basis_vectors_cached(
+        nterms=nterms, npix=npix, zero=zero, outside=_outside_key(outside)
+    )
+    basis_flat = basis_stack.reshape(nterms, -1)
+    psf_flat = psf.ravel()
+    numerators = basis_flat @ psf_flat
+    denominators = np.einsum("ij,ij->i", basis_flat, basis_flat)
+    return numerators / denominators
 
 def genpsf(WL=650e-9, pdx=0, pdy=0, pdz=0, ptx=0, pty=0, sdx=0, sdy=0, sdz=0, stx=0, sty=0, dterms=5):
 
@@ -167,6 +226,18 @@ def genpsf(WL=650e-9, pdx=0, pdy=0, pdz=0, ptx=0, pty=0, sdx=0, sdy=0, sdz=0, st
 
     return r
 
+
+# Cached wrapper around `genpsf` to avoid rebuilding identical PSFs repeatedly.
+# Quantize input floats to reduce cache cardinality and improve hit rate.
+@lru_cache(maxsize=1024)
+def _genpsf_cached(qWL, qpdx, qpdy, qpdz, qptx, qpty, qsdx, qsdy, qsdz, qstx, qsty, qdterms):
+    return genpsf(WL=qWL, pdx=qpdx, pdy=qpdy, pdz=qpdz, ptx=qptx, pty=qpty,
+                  sdx=qsdx, sdy=qsdy, sdz=qsdz, stx=qstx, sty=qsty, dterms=qdterms)
+
+def genpsf_cached(WL=650e-9, pdx=0, pdy=0, pdz=0, ptx=0, pty=0, sdx=0, sdy=0, sdz=0, stx=0, sty=0, dterms=5, precision=3):
+    q = lambda x: round(float(x), precision)
+    return _genpsf_cached(q(WL), q(pdx), q(pdy), q(pdz), q(ptx), q(pty), q(sdx), q(sdy), q(sdz), q(stx), q(sty), int(dterms))
+
 C = np.array([[ 1.16634361e-05, -2.32559604e-06, -1.38717321e-06],
               [-2.32559604e-06,  2.10292548e-06,  1.61782429e-07],
               [-1.38717321e-06,  1.61782429e-07,  1.31161567e-06]])
@@ -176,13 +247,13 @@ lnorm = -0.5 * (np.log(2 * np.pi) * 3 + np.log(np.linalg.det(C)))  # ln(normaliz
 def validator(xy, iter=30):
     x = xy[0]
     y = xy[1]
-    ct = genpsf(650e-9, x, y, 0, 0, 0, 0, 0, 0, 0, 0, 3)
+    ct = genpsf_cached(650e-9, x, y, 0, 0, 0, 0, 0, 0, 0, 0, 3, precision=3)
     
     # log-likelihood
     def loglike(theta):
         pdx,pdy = theta
         ## PSF
-        c = genpsf(WL=650e-9, pdx=pdx, pdy=pdy, dterms=3)
+        c = genpsf_cached(WL=650e-9, pdx=pdx, pdy=pdy, dterms=3, precision=3)
 
         return -0.5 * np.dot(ct-c, np.dot(Cinv, ct-c)) + lnorm
 
@@ -209,7 +280,7 @@ def validator(xy, iter=30):
     t0 = np.array([np.median(dres.samples[:,0]), np.median(dres.samples[:,1])])
 
     def lstep(t):
-        return np.sum((genpsf(WL=650e-9, pdx=x, pdy=y, dterms=3) - genpsf(WL=650e-9, pdx=t[0], pdy=t[1], dterms=3))**2)
+        return np.sum((genpsf_cached(WL=650e-9, pdx=x, pdy=y, dterms=3, precision=3) - genpsf_cached(WL=650e-9, pdx=t[0], pdy=t[1], dterms=3, precision=3))**2)
     
     res = minimize(lstep, t0, method='Nelder-Mead', tol = 1e-6, options={'disp': True})
 

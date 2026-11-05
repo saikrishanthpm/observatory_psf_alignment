@@ -1,0 +1,11 @@
+\documentclass[border=2pt]{standalone}
+\usepackage{amsmath,bm}
+\begin{document}
+\fontsize{25}{30}\selectfont
+$\begin{gathered}
+  \ln\mathcal{L}(\bm{\theta}) = \sum_{f\in\mathcal{F}}
+  -\tfrac{1}{2}\,\Delta\mathbf{c}_f^{\top}\,\bm{\Sigma}_f^{-1}\,
+  \Delta\mathbf{c}_f + \mathrm{const}, \\[4pt]
+  \Delta\mathbf{c}_f = \mathbf{c}_f(\bm{\theta}) - \mathbf{c}_{f,\mathrm{obs}}
+\end{gathered}$
+\end{document}
